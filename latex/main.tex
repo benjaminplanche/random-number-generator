@@ -64,9 +64,7 @@ Based on the theory of large numbers, he stated that an infinite sequence of sym
 
 The sub-sequence criterion is fundamental in this definition. For instance, if the sequence “$10101010$” is not biased, we obtain the biased sub-sequence “$0000$” by selecting only the even positions \cite{down}.
 
-This first definition was however unsatisfying, because of the failed attempts to mathematize what the “proper method” of selection was, and also because of a demonstration by \emph{Jean Ville} in 1939, proving that such a definition only yields an empty set \cite{down}.
-
-After the development of the information theory in the middle of the twentieth century, new definitions were proposed in the sixties, reaching some kind of consensus.
+This first definition was however unsatisfying, because of the failed attempts to mathematize what the “proper method” of selection was, and also because of a demonstration by \emph{Jean Ville} in 1939, proving that such a definition only yields an empty set \cite{down}. After the development of the information theory in the middle of the twentieth century, new definitions were proposed in the sixties, reaching some kind of consensus.
 
 \subsection{Definition by Martin-L\"{o}f}
 
@@ -121,9 +119,7 @@ In computer science, operating systems implement various methods based on the un
 
 \subsubsection{Pseudo-Random Number Generators:}
 
-As it has been said, PRNG are generators based on algorithms. It might seem paradoxical to associate randomness with algorithms, which are by definition deterministic. But some cleverly implemented processes can generate pseudo-random sequences with periods long enough for their usages.
-
-Because pseudo-random number generators are deterministic, their output sequences are totally defined by their initial configuration, called \emph{state}. The key variable of this state is the \emph{seed} (or \emph{random seed}), a number, or vector, which should be kept secret. Otherwise, anyone could predict the sequence generated from this setting \cite{w-rng,down}.
+As it has been said, PRNG are generators based on algorithms. It might seem paradoxical to associate randomness with algorithms, which are by definition deterministic. But some cleverly implemented processes can generate pseudo-random sequences with periods long enough for their usages. Because pseudo-random number generators are deterministic, their output sequences are totally defined by their initial configuration, called \emph{state}. The key variable of this state is the \emph{seed} (or \emph{random seed}), a number, or vector, which should be kept secret. Otherwise, anyone could predict the sequence generated from this setting \cite{w-rng,down}.
 
 We present below two widespread categories of PRNGs, based on shift registers:
 
@@ -231,6 +227,9 @@ Algorithm \ref{alg:nlfsr} shows how to generate non-linear feedback shift regist
 Random number generators have applications in every area where unpredictable behavior is desirable or required, from cryptographic systems to gambling applications, statistical sampling, simulation or tests suites, etc. \cite{w-rng,ray:and}.
 
 Depending on the applications, various properties can be required from the generators. For instance, a security application will need a \emph{cryptographically-secure} generator; while a shuffling method will require a generator ensuring the uniqueness of the returned values \cite{w-rng}. While cryptography and some numerical algorithms demand for \emph{qualities} mostly found in physical RNGs, there is a vast variety of computer applications which are satisfied with \emph{weaker} forms of randomness; for example to simulate random behaviors in games or to get an input for a data-integrity checksum. In those cases, PNRGs are often promoted, since they are generally faster and lighter (simple boolean logic for LFSRs and NLFSRs for instance) \cite{w-rng,ray:and}.
+
+In cryptographic systems or even operating systems, it is common to use a RNG to \emph{seed} a strong PRNG \cite{auma}, in order to increase the entropy.
+
 
 \section{Testing Randomness}
 \label{sec:test}
