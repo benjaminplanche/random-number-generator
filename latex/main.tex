@@ -36,15 +36,15 @@
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-This survey focus on Random Number Generators (RNGs). In this light, it first attempts to unravel the various definitions of randomness and pseudo-randomness, before detailing the different categories of random generators, based on physical phenomena or computations. Emphasis is put on Linear- and Non-Linear Feedback Shift Registers (LFSRs and NLFSRs), and their implementation. Finally, the difficulty of objectively testing RNGs is discussed, and various test suites are described.
+This survey focuses on Random Number Generators (RNGs). In this light, it first attempts to unravel the various definitions of randomness and pseudo-randomness, before detailing the different categories of random number generators, based on physical phenomena or computations. Emphasis is put on Linear- and Non-Linear Feedback Shift Registers (LFSRs and NLFSRs), and their implementation. Finally, the difficulty of objectively testing RNGs is discussed, and various test suites are described.
 \keywords{RNG, randomness, entropy, pseudorandom, LFSR, NLFSR, test suite, Berlekamp-Massey algorithm}
 \end{abstract}
 %
 \section{Introduction}
 %
-The generation of random numbers is an important operation for various computational tasks, but not all these applications have the same requirements about the \emph{randomness} of the obtained sequences. This paper has thus for purpose to give an overview of the most common requirements and solutions in the vast domain of random number generation.
+The generation of random numbers is an important operation for various computational tasks, but not all these applications have the same requirements about the \emph{randomness} of the obtained sequences. This paper has thus the purpose to give an overview of the most common requirements and solutions in the vast domain of random number generation.
 
-In Section \ref{sec:rand}, we first discuss the various definitions behind randomness. Section \ref{sec:rng} develops about the two main categories of RNGs and offers implementations of the famous LFSRs and NLFSRs. In section \ref{sec:test}, we explain the problems relative to testing such generators, before presenting some famous test batteries and developing about the \emph{Berlekamp-Massey} algorithm and its implementation. Finally, we conclude this paper in Section \ref{sec:conc}.
+In Section \ref{sec:rand}, we first discuss the various definitions behind randomness. Section \ref{sec:rng} describes the two main categories of RNGs and offers implementations of the famous LFSRs and NLFSRs. In Section \ref{sec:test}, we explain the problems relative to testing such generators, before presenting some famous test batteries and discussing the \emph{Berlekamp-Massey} algorithm and its implementation. Finally, we conclude this paper in Section \ref{sec:conc}.
 
 
 \section{Randomness}
@@ -53,7 +53,7 @@ In Section \ref{sec:rand}, we first discuss the various definitions behind rando
 
 Randomness is defined as the lack of pattern, predictability or determinism in events. It is thus generally difficult to evaluate if a sequence is truly random, or if we are simply ignorant of a hidden underlying pattern.
 
-Among other matters, information theory is thus studying the properties of a random sequence. This notion is usually defined as being a sequence of independent random variables. However, the elaboration of a more formal and mathematical characterization is quite challenging, and has been the subject of many debates and studies during the last century.
+Among other matters, information theory is studying the properties of random sequences. This notion is usually defined as being a sequence of independent random variables. However, the elaboration of a more formal and mathematical characterization is quite challenging, and has been the subject of many debates and studies during the last century.
 
 \subsection{Definition by Von Mises}
 
@@ -66,7 +66,7 @@ This first definition was however unsatisfying, because of the failed attempts t
 
 \subsection{Definition by Martin-L\"{o}f}
 
-A sequence is random for the Swedish statistician \emph{Per Martin-L\"{o}f} if it has no ``exceptional and effectively verifiable'' property, i.e. has no properties which can be verified by a recursive algorithm. This definition, presented in 1966 and based on the measure theory, is considered the most satisfactory notion of algorithmic randomness. It is considered as a \textit{frequency / measure-theoretic} approach to randomness \cite{down} \cite{down}.
+A sequence is random according to the Swedish statistician \emph{Per Martin-L\"{o}f} if it has no ``exceptional and effectively verifiable'' property, i.e. has no properties which can be verified by a recursive algorithm. This definition, presented in 1966 and based on the measure theory, is considered the most satisfactory notion of algorithmic randomness. It is considered as a \textit{frequency / measure-theoretic} approach to randomness \cite{down}.
 
 \subsection{Definition by Levin/Chaitin}
 
@@ -115,21 +115,21 @@ In computer science, operating systems implement various methods based on the un
 
 \subsubsection{Pseudo-Random Number Generators:}
 
-As it has been said, PRNG are generators based on algorithms. It might seem paradoxical to associate randomness with algorithms, which are by definition determinist. But some cleverly implemented processes can generate pseudo-random sequences with periods long enough for their usages. Because pseudo-random number generators are deterministic, their output sequences are totally defined by their initial configuration, called \emph{state}. The key variable of this state is the \emph{seed} (or \emph{random seed}), a number, or vector, which should be kept secret – otherwise anyone could predict the sequence generated from this setting \cite{w-rng,down}.
+As it has been said, PRNG are generators based on algorithms. It might seem paradoxical to associate randomness with algorithms, which are by definition deterministic. But some cleverly implemented processes can generate pseudo-random sequences with periods long enough for their usages. Because pseudo-random number generators are deterministic, their output sequences are totally defined by their initial configuration, called \emph{state}. The key variable of this state is the \emph{seed} (or \emph{random seed}), a number, or vector, which should be kept secret. Otherwise, anyone could predict the sequence generated from this setting \cite{w-rng,down}.
 
-We present below to famous categories of PRNGs, based on shift registers:
+We present below two widespread categories of PRNGs, based on shift registers:
 
 
 \paragraph{LFSR:}
 
 
-A \emph{Linear Feedback Shift Register} (LFSR) is a sequential shift register whose input bit is a linear function of its previous state, i.e. with combinational logic that causes it to pseudo-randomly cycle through a sequence of binary values \cite{ray:and,joux}. A binary feedback register is thus a mapping $\mathfrak{F}:\mathbb{F}_2^n \to \mathbb{F}_2^n$, with $\mathbb{F}_2^n$ the cector space of all binary $n$-tuples, and $\mathfrak{F}$ of the form:
+A \emph{Linear Feedback Shift Register} (LFSR) is a sequential shift register whose input bit is a linear function of its previous state, i.e. with combinational logic that causes it to pseudo-randomly cycle through a sequence of binary values \cite{ray:and,joux}. A binary feedback register is thus a mapping $\mathfrak{F}:\mathbb{F}_2^n \to \mathbb{F}_2^n$, with $\mathbb{F}_2^n$ the vector space of all binary $n$-tuples, of the form:
 
 $$\mathfrak{F}:(x_1, x_2, ..., x_n)\mapsto (x_2, x_3, ..., x_n, f((x_1, x_2, ..., x_n))$$
 
 With $f$ the feedback function, a Boolean operation of $n$ variables, linear in the case of LFSRs. Design-speaking, this function defines the \emph{taps}, i.e. the bits of the register used in the linear operation (generally \textit{XOR}) generating the new input bit \cite{szmi,joux}.
 
-The feedback function can also be be expressed in finite field arithmetic as a polynomial mod 2, the feedback polynomial or reciprocal characteristic polynomial. For instance, a LFSR with taps on the \nth{16}, \nth{14}, \nth{13} and \nth{11} bits has for feedback polynomial $x_{16} + x_{14} + x_{13} + x_{11} + 1$ \cite{w-lfsr}\cite{joux}.
+The feedback function can also be be expressed in finite field arithmetic as a polynomial mod 2, called the feedback polynomial or reciprocal characteristic polynomial. For instance, a LFSR with taps on the \nth{16}, \nth{14}, \nth{13} and \nth{11} bits has the feedback polynomial $x_{16} + x_{14} + x_{13} + x_{11} + 1$ \cite{w-lfsr}\cite{joux}.
 
 To obtain a maximal-length LFSR, i.e. a LFSR generating a bit sequence of period $2^n-1$, several conditions must be met by the feedback function, such as having an even number of taps or using a \textit{relatively-prime} set of taps \cite{w-lfsr}\cite{joux}.
 
@@ -145,7 +145,7 @@ Algorithm \ref{alg:lfsr} details a solution for the generation of linear feedbac
       \Statex Sequence of values generated by the LFSR defined by the given sequence of taps and initial value.
     \Statex
     \State $degree \gets |taps|$ \Comment{Degree of the feedback polynomial}
-    \State $period \gets 2^degree - 1$ \Comment{Max-period of the LFSR}
+    \State $period \gets 2^{degree} - 1$ \Comment{Max-period of the LFSR}
     \State $value \gets seed$ \Comment{Returned value}
     \State $it \gets 0$
     \While{$it < period$}
@@ -160,7 +160,7 @@ Algorithm \ref{alg:lfsr} details a solution for the generation of linear feedbac
             \State $j \gets j+1$
     	\EndFor
         
-    	\Comment{Getting the final value in the register by popping the less-significant bit and appending the new most-significant one:}
+    	\Comment{Getting the final value in the register by popping the least-significant bit and appending the new most-significant one:}
         \State $value \gets (value >> 1) | (bit << (degree-1))$
         
         \Return $value$ \Comment{Yield the pseudo-random value}
@@ -185,7 +185,7 @@ Algorithm \ref{alg:nlfsr} shows how to generate non-linear feedback shift regist
       \Statex Sequence of values generated by the NLFSR defined by the given sequence of taps and initial value.
     \Statex
     \State $degree \gets |taps|$ \Comment{Degree of the feedback polynomial}
-    \State $period \gets 2^degree - 1$ \Comment{Max-period of the NLFSR, cf \cite{dubro}}
+    \State $period \gets 2^{degree} - 1$ \Comment{Max-period of the NLFSR, cf \cite{dubro}}
     \State $value \gets seed$ \Comment{Returned value}
     \State $it \gets 0$
     \While{$it < period$}
@@ -213,7 +213,7 @@ Algorithm \ref{alg:nlfsr} shows how to generate non-linear feedback shift regist
             \State $j \gets j+1$
     	\EndFor
         
-    	\Comment{Getting the final value in the register by popping the less-significant bit and appending the new most-significant one:}
+    	\Comment{Getting the final value in the register by popping the least-significant bit and appending the new most-significant one:}
         \State $value \gets (value >> 1) | (bit << (degree-1))$
         
         \Return $value$ \Comment{Yield the pseudo-random value}
@@ -235,34 +235,34 @@ As the definition of \emph{randomness} is complex and field-dependent, so are th
  
 \subsection{About the Difficulty to Test Randomness}
 
-As exposed in the definition of \emph{Randomness} in Section \ref{sec:rand}, The term \textit{random sequence} can have various meanings depending on the field of study, making this property difficult to test. Moreover, as for cryptographic results, the large number of possibilities is generally impossible to be fully covered. For instance, testing if a random sequence has indeed \textit{no shorter construction} is impossible without checking every construction \cite{ritt}. 
+As exposed in the definition of \textit{randomness} in Section \ref{sec:rand}, the term \textit{random sequence} can have various meanings depending on the field of study, making this property difficult to test. Moreover, as for cryptographic results, the large number of possibilities is generally impossible to be fully covered. For instance, testing if a random sequence has indeed \textit{no shorter construction} is impossible without checking every construction \cite{ritt}. 
 This is why the randomness of a sequence is commonly analyzed through statistical tests or complexity evaluations.
 
 Once a RNG has been developed, a battery of empirical statistical tests is run against it, in an attempt to identify statistical bias. They try to evaluate if the generated sequences follow the hypothesis of \emph{perfect behavior} (named $\mathcal{H}_0$ in \cite{lecu}), the hypothesis that the values of the sequences "\textit{ imitate independent random variables from the uniform distribution}" \cite{lecu}. Different tests will thus detect different problems by using checking various statistical behaviors. Since a full coverage is impossible, there is no universal battery of tests. It is commonly acknowledged that \textit{good} RNGs are then those which pass \textit{complicated} or \textit{numerous} tests \cite{ritt,lecu}. 
 
 
-\subsection{Notorious Tests}
+\subsection{Common Tests}
 
 
 \subsubsection{DIEHARD Tests:} 
 
-This battery of statistical tests has been developed by George Marsaglia and first published in 1995 on a downloadable CD-ROM of random numbers \cite{marsa}. It consists of fifteen tests, which are run over a large file containing the sequence, provided by the user. Those tests are namely the: birthday spacings, overlapping permutations, ranks of 31x31 and 32x32 matrices, ranks of 6x8 matrices, monkey tests on 20-bit Words, monkey tests OPSO, OQSO, DNA, 1's count in a stream of bytes, 1's count in specific bytes, parking lot, minimum distance, random spheres, squeeze, overlapping sums, runs, and craps \cite{soto}.
+This battery of statistical tests has been developed by George Marsaglia and first published in 1995 on a downloadable CD-ROM of random numbers \cite{marsa}. It consists of fifteen tests, which are run over a large file containing the sequence, provided by the user. Those tests are: birthday spacings, overlapping permutations, ranks of 31x31 and 32x32 matrices, ranks of 6x8 matrices, monkey tests on 20-bit Words, monkey tests OPSO, OQSO, DNA, 1's count in a stream of bytes, 1's count in specific bytes, parking lot, minimum distance, random spheres, squeeze, overlapping sums, runs, and craps \cite{soto}.
 
 \subsubsection{TestU01 Suite:}
-This software library, initiated in 1985 and implemented in the ANSI C language offers a collection of utilities for the empirical statistical testing of RNGs. Among the various provided tools, it offer general implementations of the classical statistical tests for random number generators, several others proposed in the literature, and some original ones; but it also offers tools to implement specific statistical tests. \cite{lecu}.
+This software library, initiated in 1985 and implemented in the ANSI C language offers a collection of utilities for the empirical statistical testing of RNGs. Among the various provided tools, it offers general implementations of the classical statistical tests for random number generators, several others proposed in the literature, and some original ones; but it also offers tools to implement specific statistical tests. \cite{lecu}.
 
 \subsubsection{Berlekamp-Massey Algorithm:} This algorithm can't really be considered as a test. It is is used for finding in a arbitrary field $\mathbb{F}_n$ the minimal polynomial of linearly recurrent sequences, such as thoses generated by LFSRs. \emph{Elwyn Berlekamp} invented an algorithm in 1967 for decoding BCH codes \cite{berle}, then soon after \emph{James Massey} simplified and adapted it to LFSRs \cite{mass}.
 
 The goal of the algorithm is to determine the minimal degree $L$ and the \emph{annihilator} (or \emph{inverse feedback}) polynomial $F(x)$ of the given sequence $S$, such as for all syndromes $n = L$ to $(|S|-1)$:
 
-$$S_n + F_1 . S_{n-1} + ... + F_L . S_{n-L} = 0$$
+$$S_n + F_1 \cdot S_{n-1} + ... + F_L \cdot S_{n-L} = 0$$
 
-Finding this minimal polynomial requires to solve a set of $L$ linear equations, $F(x)$ being thus uniquely determined by the first $2L$ elements of $S$. At each iteration $l$, the algorithm then evaluates the \emph{discrepency} $\beta$ \cite{joux,feng:tzeng}.
+Finding this minimal polynomial requires to solve a set of $L$ linear equations, $F(x)$ being thus uniquely determined by the first $2L$ elements of $S$. At each iteration $l$, the algorithm then evaluates the \emph{discrepancy} $\beta$ \cite{joux,feng:tzeng}, with:
 
-$$ \beta = S_l + F_1 . S_{l-1} + ... + F_L . S_{l-L}$$
-If $\beta = 0$, $F(x)$ and $L$ are still currently correct, and the algorithm can proceed to the next iteration. If $\beta \geq 0$, $F(x)$ should be concordantly adjusted, by shifting and scaling the syndromes added since the last update of $L$ \cite{joux}.
+$$ \beta = S_l + F_1 \cdot S_{l-1} + ... + F_L \cdot S_{l-L}$$
+If $\beta = 0$, $F(x)$ and $L$ are still currently correct, and the algorithm can proceed to the next iteration. If $\beta \geq 0$, $F(x)$ should be concordantly adjusted, by shifting and scaling the syndromes added since the last update of $L$ \cite{joux}:
 
-$$F(x) \gets F(x) - (\beta/\alpha).x^\delta.f(x)$$
+$$F(x) \gets F(x) - (\beta/\alpha) \cdot x^\delta \cdot f(x)$$
 
 
 with $\delta$ the number of iterations since the last update of $L$, and $\alpha$, resp. $f(x)$, the value of $\beta$, resp. $F(x)$, before this last update.
@@ -292,7 +292,7 @@ A more complete definition of the process is given in Algorithm \ref{alg:ber-mas
     \State $l \gets 0$
     \Comment{Computing $F(x)$ and $L$:}
     \For{$l < N$}
-        \State $\beta \gets \sum_{i=0}^{L} sequence[l-i] \otimes |x^i|F$ \Comment{Evaluating the current discrepency}
+        \State $\beta \gets \sum_{i=0}^{L} sequence[l-i] \otimes |x^i|F$ \Comment{Evaluating the current discrepancy}
         
         \Comment{If the discrepancy is null, we can assume that $F$ and $L$ are currently correct and can continue with the next term. Else, we must adjust $F$:}
         \If{$\beta \neq 0$} \Comment{Adjusting $F$ for this term:}
