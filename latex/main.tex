@@ -58,11 +58,15 @@ Among other matters, information theory is studying the properties of random seq
 \subsection{Definition by Von Mises}
 
 
-The first attempt at defining algorithmic randomness was made by the scientist and mathematician \emph{Richard Edler von Mises} (19 April 1883 – 14 July 1953). Based on the theory of large numbers, he stated that an infinite sequence of symbols (bits actually) can be considered random if it possesses the frequency stability property, i.e. if the appearance frequencies of the symbols aren't biased and goes to the same expected value (cf. the strong law of large numbers), but also if any sub-sequence selected by a ``proper method'' isn't biased \cite{down}.
+The first attempt at defining algorithmic randomness was made by the scientist and mathematician \emph{Richard Edler von Mises} (19 April 1883 – 14 July 1953).
+
+Based on the theory of large numbers, he stated that an infinite sequence of symbols (bits actually) can be considered random if it possesses the frequency stability property, i.e. if the appearance frequencies of the symbols aren't biased and goes to the same expected value (cf. the strong law of large numbers), but also if any sub-sequence selected by a ``proper method'' isn't biased \cite{down}.
 
 The sub-sequence criterion is fundamental in this definition. For instance, if the sequence “$10101010$” is not biased, we obtain the biased sub-sequence “$0000$” by selecting only the even positions \cite{down}.
 
-This first definition was however unsatisfying, because of the failed attempts to mathematize what the “proper method” of selection was, and also because of a demonstration by \emph{Jean Ville} in 1939, proving that such a definition only yields an empty set \cite{down}. After the development of the information theory in the middle of the twentieth century, new definitions were proposed in the sixties, reaching some kind of consensus.
+This first definition was however unsatisfying, because of the failed attempts to mathematize what the “proper method” of selection was, and also because of a demonstration by \emph{Jean Ville} in 1939, proving that such a definition only yields an empty set \cite{down}.
+
+After the development of the information theory in the middle of the twentieth century, new definitions were proposed in the sixties, reaching some kind of consensus.
 
 \subsection{Definition by Martin-L\"{o}f}
 
@@ -73,11 +77,13 @@ A sequence is random according to the Swedish statistician \emph{Per Martin-L\"{
 \emph{Ray Solomonoff} (25 July 1926 – 7 December 2009) and \emph{Andreï Nikolaïevitch Kolmogorov} (25 April 1903 – 20 October 1987) developed in the sixties an important measure for the field of information theory: \emph{the complexity of Kolmogorov} \cite{down}. This measure is defined as the length of the shortest program (independently of the machine running it) able to generate the evaluated sequence. 
 
 
-Using this work, \emph{Leonid Anatolievich Levin} (born in 1948) and \emph{Gregory Chaitin} (born in 1947) concluded in 1975 that a random finite string can be considered as a string which requires a program at least as long as itself to be computed. Another way to express it is: ``\textit{a random sequence must have an incomprehensible informational content}'', i.e. it is impossible to make any sense of it, and thus to use a shorter sequence or program to describe it \cite{down}. This is why this approach is considered as a \textit{complexity / compressibility} one.
+Using this work, \emph{Leonid Anatolievich Levin} (born in 1948) and \emph{Gregory Chaitin} (born in 1947) concluded in 1975 that a random finite string can be considered as a string which requires a program at least as long as itself to be computed. Another way to express it is: ``\textit{a random sequence must have an incomprehensible informational content}'', i.e. it is impossible to make any sense of it, and thus to use a shorter sequence or program to describe it \cite{down}.
+
+This is why this approach is considered as a \textit{complexity / compressibility} one.
 
 \subsection{Definition by Schnorr}
 
-Taking the predictability approach, \emph{Claus-Peter Schnorr} (born in 1943) used the martingales theory in 1971 to build his definition, which is the following: ``a random sequence must not be predictable. No effective strategy should lead to an infinite gain if we bet on the symbols of the sequence'' \cite{down}.
+Taking the predictability approach, \emph{Claus-Peter Schnorr} (born in 1943) used the martingales theory in 1971 to build his definition, which is the following: ``\textit{a random sequence must not be predictable. No effective strategy should lead to an infinite gain if we bet on the symbols of the sequence}'' \cite{down}.
 
 
 
@@ -111,11 +117,13 @@ The best phenomena to use as input for random generators are thus the phenomena 
 
 If these devices are seen as golden solutions, they are globally too costly to be democratized. Thermal phenomena are for instance easier to detect and offer good results. The noise obtained by amplifying the thermal signal from a transistor or from an atmospheric radio receiver are famous examples, though other solutions have also been developed (based on the comparison of pictures from an agitated scene, on the noise from analog-to-digital converter, etc.) \cite{w-rng}.
 
-In computer science, operating systems implement various methods based on the unpredictable inputs/outputs and the behavior of the users. In Unix systems for instance, $/dev/urandom$ and $/dev/random$ are device files probing analog sources (mouse, keyboard, disk accesses, etc.) to harvest entropy and thus output random bytes; while $CryptGenRandom$ for Windows systems gather entropy though CPU counters, environment variables, threads IDs, etc. In both cases however, entropy tends to decrease during inactivity, which could lead to shortages \cite{auma}.
+In computer science, operating systems implement various methods based on the unpredictable inputs/outputs and the behavior of the users.In Unix systems for instance, $/dev/urandom$ and $/dev/random$ are device files probing analog sources (mouse, keyboard, disk accesses, etc.) to harvest entropy and thus output random bytes; while $CryptGenRandom$ for Windows systems gather entropy though CPU counters, environment variables, threads IDs, etc. In both cases however, entropy tends to decrease during inactivity, which could lead to shortages \cite{auma}.
 
 \subsubsection{Pseudo-Random Number Generators:}
 
-As it has been said, PRNG are generators based on algorithms. It might seem paradoxical to associate randomness with algorithms, which are by definition deterministic. But some cleverly implemented processes can generate pseudo-random sequences with periods long enough for their usages. Because pseudo-random number generators are deterministic, their output sequences are totally defined by their initial configuration, called \emph{state}. The key variable of this state is the \emph{seed} (or \emph{random seed}), a number, or vector, which should be kept secret. Otherwise, anyone could predict the sequence generated from this setting \cite{w-rng,down}.
+As it has been said, PRNG are generators based on algorithms. It might seem paradoxical to associate randomness with algorithms, which are by definition deterministic. But some cleverly implemented processes can generate pseudo-random sequences with periods long enough for their usages.
+
+Because pseudo-random number generators are deterministic, their output sequences are totally defined by their initial configuration, called \emph{state}. The key variable of this state is the \emph{seed} (or \emph{random seed}), a number, or vector, which should be kept secret. Otherwise, anyone could predict the sequence generated from this setting \cite{w-rng,down}.
 
 We present below two widespread categories of PRNGs, based on shift registers:
 
@@ -189,27 +197,21 @@ Algorithm \ref{alg:nlfsr} shows how to generate non-linear feedback shift regist
     \State $value \gets seed$ \Comment{Returned value}
     \State $it \gets 0$
     \While{$it < period$}
-    
-    	\Comment{Computing first the new value of the most-significant bit:}
-        \State $bit \gets 0$
+        \State $bit \gets 0$ \Comment{New value of the most-significant bit:}
         \State $j \gets 0$
         \For{$j<degree$}
         	\If{$taps[j] \neq 0$}
             
-            	\Comment{Computing the binary multiplication $x_{k_0} \otimes x_{k_1} \otimes ... \otimes x_{k_n}$ with $[k_0, k_1, ..., k_n]$ the $j$-th taps array}
+            	\Comment{Computing the binary AND-operation $x_{k_0} \otimes x_{k_1} \otimes ... \otimes x_{k_n}$ with $[k_0, k_1, ..., k_n]$ the $j$-th taps array}
         		\State $multResult \gets 1$
                 \ForAll{$k \in taps[j]$}
-                
-                	\Comment{Binary multiplication of terms returns $1$ iif none of the terms is null. So if we encounter a null bit, we simply return $0$, else $1$.}
-                	\If{$(value >> k) = 0$}
-                    	\State $multResult \gets 0$
-                        \State break
-                    \EndIf
+                	\State $kBit = (value >> k) \mod 2$ \Comment{$k$-th bit of $value$}
+                	\State $multResult \gets multResult \otimes kBit$ \label{alg-binMult}
                 \EndFor
             \Else
             	\State $multResult \gets 0$
             \EndIf
-            \State $bit \gets bit \oplus multResult$ \Comment{Binary addition of the multiplication results}
+            \State $bit \gets bit \oplus multResult$ \Comment{$\oplus$ representing the binary XOR-operation}
             \State $j \gets j+1$
     	\EndFor
         
@@ -220,6 +222,8 @@ Algorithm \ref{alg:nlfsr} shows how to generate non-linear feedback shift regist
     \EndWhile
   \end{algorithmic}
 \end{algorithm}
+
+\paragraph{Note:} Multiplication over $\mathbb{F}_2$ corresponds to the logical AND-operation. Chained multiplications over  $\mathbb{F}_2$ will thus return $1$ if and only if all the operands are equal to 1. It is thus possible to simplify this operation Line \ref{alg-binMult} of Algorithm \ref{alg:nlfsr}, by replacing it with a test on the $k$-th bit ($kBit$): if its value is not null, the loop continues with $multResult$ unchanged, else $multResult \gets 0$ and we can break out of the loop.
 
 
 \subsection{Applications and Uses}
@@ -238,7 +242,9 @@ As the definition of \emph{randomness} is complex and field-dependent, so are th
 As exposed in the definition of \textit{randomness} in Section \ref{sec:rand}, the term \textit{random sequence} can have various meanings depending on the field of study, making this property difficult to test. Moreover, as for cryptographic results, the large number of possibilities is generally impossible to be fully covered. For instance, testing if a random sequence has indeed \textit{no shorter construction} is impossible without checking every construction \cite{ritt}. 
 This is why the randomness of a sequence is commonly analyzed through statistical tests or complexity evaluations.
 
-Once a RNG has been developed, a battery of empirical statistical tests is run against it, in an attempt to identify statistical bias. They try to evaluate if the generated sequences follow the hypothesis of \emph{perfect behavior} (named $\mathcal{H}_0$ in \cite{lecu}), the hypothesis that the values of the sequences "\textit{ imitate independent random variables from the uniform distribution}" \cite{lecu}. Different tests will thus detect different problems by using checking various statistical behaviors. Since a full coverage is impossible, there is no universal battery of tests. It is commonly acknowledged that \textit{good} RNGs are then those which pass \textit{complicated} or \textit{numerous} tests \cite{ritt,lecu}. 
+Once a RNG has been developed, a battery of empirical statistical tests is run against it, in an attempt to identify statistical bias. They try to evaluate if the generated sequences follow the hypothesis of \emph{perfect behavior} (named $\mathcal{H}_0$ in \cite{lecu}), the hypothesis that the values of the sequences "\textit{ imitate independent random variables from the uniform distribution}" \cite{lecu}.
+
+Different tests will thus detect different problems by using checking various statistical behaviors. Since a full coverage is impossible, there is no universal battery of tests. It is commonly acknowledged that \textit{good} RNGs are then those which pass \textit{complicated} or \textit{numerous} tests \cite{ritt,lecu}. 
 
 
 \subsection{Common Tests}
@@ -267,10 +273,13 @@ $$F(x) \gets F(x) - (\beta/\alpha) \cdot x^\delta \cdot f(x)$$
 
 with $\delta$ the number of iterations since the last update of $L$, and $\alpha$, resp. $f(x)$, the value of $\beta$, resp. $F(x)$, before this last update.
 
-In order to keep track of the number of errors and current degree of the polynomial, $L$ should be updated if the number $l$ of iterations is getting bigger then $2L$ (cf. above). In this case, $L$ is adjusted as follow:
+In order to keep track of the number of errors and current degree of the polynomial, $L$ should be updated, otherwise  the discrepancies will reach $0$ before $l$ grows bigger than $2*L$. (cf. above). When this happens, $L$ is thus adjusted (and so are $\alpha$ and $f(x)$) as follow:
+
 $$L \gets l + 1 - L$$
 
 A more complete definition of the process is given in Algorithm \ref{alg:ber-mas}, based on the works in \cite{joux,rodri}. A Python implementation of this algorithm has been run against the sequences generated by the previously-presented LFSR and NLFSR implementations (Algorithms \ref{alg:lfsr} and \ref{alg:nlfsr}). As expected, it was able to successfully and efficiently evaluate the annihilator polynomial of complex LFSRs (and thus their original feedback polynomial, by taking the inverse of the annihilator); and as expected it failed against the sequences generated by the non-linear registers.
+
+\paragraph{Note:} The generic algorithm in $\mathbb{F}_q$ requires to multiply the subtractor term, at Line \ref{alg-updateF} of Algorithm \ref{alg:ber-mas}, by $(\beta/\alpha)$ with $\alpha$ the previous non-null value of $\beta$ updated at the same time as $L$ and $f(x)$. In $\mathbb{F}_2$, this product would always be equal to $1$.
 
 
 \begin{algorithm}[ht]
@@ -286,28 +295,25 @@ A more complete definition of the process is given in Algorithm \ref{alg:ber-mas
     
     
     \State $N \gets |sequence|$ \Comment{Length of the sequence}
-    \State $F(x) \gets 1, f(x) \gets 1$ \Comment{Polynomials, with $F$ being the supposed inverse feedback polynomial}
     \State $L \gets 0$ \Comment{Current number of assumed errors}
+    \State $F(x) \gets 1$ \Comment{Supposed inverse feedback polynomial}
+    \State $f(x) \gets 1$ \Comment{Value of $F(x)$ before the last update of $L$}
     \State $\delta \gets 1$ \Comment{Number of iterations since last update of $L$}
     \State $l \gets 0$
     \Comment{Computing $F(x)$ and $L$:}
     \For{$l < N$}
-        \State $\beta \gets \sum_{i=0}^{L} sequence[l-i] \otimes |x^i|F$ \Comment{Evaluating the current discrepancy}
+        \State $\beta \gets \sum_{i=0}^{L} sequence[l-i] \otimes |x^i|F$ \Comment{Current discrepancy}
         
-        \Comment{If the discrepancy is null, we can assume that $F$ and $L$ are currently correct and can continue with the next term. Else, we must adjust $F$:}
-        \If{$\beta \neq 0$} \Comment{Adjusting $F$ for this term:}
-            \State $g(x) \gets F(x)$ 
-            \State $F(x) \gets F(x) - x^\delta f(x)$
-            
-            \Comment{The generic algorithm in $\mathbb{F}_q$ requires to multiply the subtractor term by $(\beta/\alpha)$ with $\alpha$ the previous non-null value of $\beta$ updated at the same time as $L$ and $f(x)$. In $\mathbb{F}_2$, this product would always be equal to $1$.}
+        \If{$\beta \neq 0$}
+            \State $g(x) \gets F(x)$ \Comment{Copy of $F$ before update}
+            \State $F(x) \gets F(x) - x^\delta f(x)$ \label{alg-updateF}
             
             
             \If{$2 * L \leq l$}
-            
-            \Comment{$L$ represents the number of error, so the discrepancies will reach $0$ before $l$ grows bigger than $2*L$. If it is not the case, we must update $L$ (and thus re-initalize $\delta$), and also $f$ and $\alpha$:}
-                \State $L \gets l + 1 - L$ \Comment{Number of available syndromes used to calculate discrepancies}
+           
+                \State $L \gets l + 1 - L$
                 \State $\delta \gets 1$
-                \State $f(x) \gets g(x)$ \Comment{$f(x)$ get the previous value of $F(x)$}
+                \State $f(x) \gets g(x)$
             \Else
                 \State $\delta \gets \delta + 1$
             \EndIf
@@ -325,7 +331,7 @@ A more complete definition of the process is given in Algorithm \ref{alg:ber-mas
 \section{Conclusion}
 \label{sec:conc}
 
-This paper presented a short overview of the large topic which is the generation of random numbers. For more detailed explanations, please refer to the list of documents below.
+This paper presented a short overview of the large topic which is the generation of random numbers, with the purpose to point out its various characteristics to the readers, so they can knowingly find the most suited implementation for their applications. For more detailed explanations, please refer to the list of documents below.
 
 %
 % ---- Bibliography ----
