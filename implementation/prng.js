@@ -216,3 +216,71 @@ function createNLFSRgenerator(taps, deg, seed) {
 		}
 	}
 }
+
+// Function for UI:
+
+function binPolyStringToArray(string, deg) {
+    /*
+        Converts a string expressing a binary polynomial to an array of the given size.
+		ex: if string = "x^9 +x^3 + 1" and deg = 10, it returns [0,1,0,0,0,0,0,1,0,0,1]
+        @param string (String): String containing the expression of the polynomial
+        @param deg (int): Size of the array to return
+        @return Binary Array
+    */
+	
+	var syndromes = string.replace(/\s/g,'').split('+');
+	console.log(syndromes);
+	var taps = [];
+	for (var i = 0; i < syndromes.length; i++) {
+		var x = syndromes[i].split('^');
+		if (x.length == 2) {
+			taps.push(parseInt(x[1]));
+		}
+		else if (x[0] == 'x') {
+			taps.push(1);
+		}
+		else if (x[0] == '1') {
+			taps.push(0);
+		}
+		
+	}
+	var poly = [];
+	
+	for (var i = deg; i > 0; i--) {
+		poly.push(0);
+	}
+	for (var i = 0; i < taps.length; i++) {
+		poly[poly.length - taps[i]] = 1;
+	}
+	return poly;
+}
+function nlBinPolyStringToArray(string, deg) {
+    /*
+        Converts a string expressing a non-linear binary polynomial to an array of the given size.
+		ex: if string = "x^9 * x^3 +x^3 + 1" and deg = 9, it returns [[0,6], [6], [9]]
+        @param string (String): String containing the expression of the polynomial
+        @param deg (int): Size of the array to return
+        @return Taps Array
+    */
+	
+	var syndromes = string.replace(/\s/g,'').split('+');
+	var taps = [];
+	for (var i = 0; i < syndromes.length; i++) {
+		var product = syndromes[i].split('*');
+		var t = [];
+		for (var j = 0; j < product.length; j++) {
+			var x = product[j].split('^');
+			if (x.length == 2) {
+				t.push(deg-parseInt(x[1]));
+			}
+			else if (x[0] == 'x') {
+				t.push(deg-1);
+			}
+			else if (x[0] == '1') {
+				t.push(deg);
+			}
+		}
+		taps.push(t);
+	}
+	return taps;
+}
