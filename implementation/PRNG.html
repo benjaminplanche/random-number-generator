@@ -1789,7 +1789,7 @@ In&nbsp;[2]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[12]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1804,7 +1804,7 @@ In&nbsp;[12]:
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;---------------&#39;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">()</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;# Test 1.2 - LFSR with x^16 + x^5 + x^3 + x^2 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;# Test 1.2 - LFSR with x^16 + x^14 + x^13 + x^11 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value&quot;</span><span class="p">)</span>
 <span class="n">lfsr16</span> <span class="o">=</span> <span class="n">createLFSRgenerator</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mh">0xACE1</span><span class="p">)()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Next Value (expected: 0xE270 = 22128):&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">lfsr16</span><span class="p">))</span>
@@ -1827,7 +1827,7 @@ Values:
 
 ---------------
 
-# Test 1.2 - LFSR with x^16 + x^5 + x^3 + x^2 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value
+# Test 1.2 - LFSR with x^16 + x^14 + x^13 + x^11 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value
 Next Value (expected: 0xE270 = 22128):
 22128
 
@@ -1985,7 +1985,7 @@ In&nbsp;[5]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[11]:
+In&nbsp;[6]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2005,7 +2005,7 @@ In&nbsp;[11]:
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;---------------&#39;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">()</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">&#39;# Test 2.2 - using the LFSR with x^16 + x^5 + x^3 + x^2 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;# Test 2.2 - using the LFSR with x^16 + x^14 + x^13 + x^11 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value&#39;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;## Test 2.2.1 - Trying with a too short sequence (31 elements):&#39;</span><span class="p">)</span>
 <span class="n">sequenceLFSR16</span> <span class="o">=</span> <span class="p">[</span><span class="n">getBitFromInt</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">lfsr16</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">)]</span>
 <span class="n">annihPolyLFSR16</span> <span class="o">=</span> <span class="n">BerlekampMasseyAlgorithm</span><span class="p">(</span><span class="n">sequenceLFSR16</span><span class="p">)</span>
@@ -2039,10 +2039,10 @@ Corresponding Taps Sequence: (1, 0, 0, 1)
 
 ---------------
 
-# Test 2.2 - using the LFSR with x^16 + x^5 + x^3 + x^2 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value
+# Test 2.2 - using the LFSR with x^16 + x^14 + x^13 + x^11 + 1 as feedback polynomial and 0xACE1 = 44257 as initial value
 ## Test 2.2.1 - Trying with a too short sequence (31 elements):
-Obtained Annihilating Polynomial: x^16 + x^5 + x^3 + x^2 + 1
-Corresponding Taps Sequence: (1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+Obtained Annihilating Polynomial: x^16 + x^13 + x^12 + x^11 + x^9 + x^7 + x^5 + x^4 + x^3 
+Corresponding Taps Sequence: (0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0)
 
 ## Test 2.2.2 - Trying with a long enough sequence (32 elements):
 Obtained Annihilating Polynomial: x^16 + x^5 + x^3 + x^2 + 1
@@ -2068,11 +2068,11 @@ Corresponding Taps Sequence: (1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+In&nbsp;[23]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">createNLFSRgenerator</span><span class="p">(</span><span class="n">taps</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">createNLFSRgenerator</span><span class="p">(</span><span class="n">taps</span><span class="p">,</span> <span class="n">deg</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a NLFSR generator, defined by the given combination of taps and initial value.</span>
 <span class="sd">        Warning: A given unproper feedback function will lead to a poor generator, with a small period.</span>
@@ -2081,9 +2081,10 @@ In&nbsp;[8]:
 <span class="sd">        @param taps (Tuple[Array[int]]): Sequence of combination of taps defining the non-linear register.</span>
 <span class="sd">            The length of the tuple defines the size of the register (number of bits).</span>
 <span class="sd">            The arrays defines each combination of elements.</span>
-<span class="sd">            ex: ([0],[1],[2],[1,2]) represents the register of feedback polynomial x^4 + x^3 + x^2  + x^1*x^2 + 1 (good function)</span>
-<span class="sd">            ex: ([0,0],[],[2],[1,2]) represents the register of feedback polynomial x^4*x^4 + x^2  + x^1*x^2 + 1 (poor function)</span>
+<span class="sd">            ex: ([0],[1],[2],[3,2]) represents the register of feedback polynomial x^4 + x^3 + x^2  + x^1*x^2 + 1 (good function)</span>
+<span class="sd">            ex: ([0,0],[],[2],[3,2]) represents the register of feedback polynomial x^4*x^4 + x^2  + x^1*x^2 + 1 (poor function)</span>
 <span class="sd">        @param seed (int):              Initial value given to the register</span>
+<span class="sd">        @param deg (int):               Size of the register</span>
 <span class="sd">        @return                         NLFSR Generator</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">nlfsrGen</span><span class="p">():</span>
@@ -2091,18 +2092,17 @@ In&nbsp;[8]:
 <span class="sd">            Yields values generated by a pre-defined NLFSR (defined by the feedback polynomial represented by `taps` and the initial value `seed`)</span>
 <span class="sd">            @yield Pseudo-Random value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">deg</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">taps</span><span class="p">)</span>              <span class="c"># Degree of the feedback polynomial</span>
         <span class="n">period</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">deg</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="c"># Max Period of the NLFSR (read Warning above)</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">seed</span>                 <span class="c"># Initial value</span>
         <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">&lt;</span> <span class="n">period</span><span class="p">):</span>
             <span class="c"># Computing the new value of the most-significant bit:</span>
             <span class="n">bit</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">taps</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
-                    <span class="c"># Computing the binary multiplication x^K_0 * x^K_1 * ... * x^K_n with [K_0, K_1, ..., K_n] the j-th taps array</span>
+            <span class="k">for</span> <span class="n">tap</span> <span class="ow">in</span> <span class="n">taps</span><span class="p">:</span>
+                <span class="c"># Computing the binary multiplication x^K_0 * x^K_1 * ... * x^K_n with [K_0, K_1, ..., K_n] the j-th taps array</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tap</span><span class="p">):</span>
                     <span class="n">element</span> <span class="o">=</span> <span class="mi">1</span>
-                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">taps</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">tap</span><span class="p">:</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="n">k</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">):</span>
                             <span class="c"># Binary multiplication of terms returns 1 iif none of the terms is null.</span>
                             <span class="c"># So if we encounter a null bit, we simply return 0, else 1.</span>
@@ -2138,12 +2138,12 @@ In&nbsp;[8]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[10]:
+In&nbsp;[27]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s">&quot;# Test 3.1 - LFSR with x^4 + x + 1 as feedback polynomial and 13 as initial value, using our NLFSR function&quot;</span><span class="p">)</span>
-<span class="n">lfsr4FromNlfsrMethod</span> <span class="o">=</span> <span class="n">createNLFSRgenerator</span><span class="p">(([</span><span class="mi">0</span><span class="p">],[],[],[</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">13</span><span class="p">)()</span>
+<span class="n">lfsr4FromNlfsrMethod</span> <span class="o">=</span> <span class="n">createNLFSRgenerator</span><span class="p">(([</span><span class="mi">0</span><span class="p">],[</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">13</span><span class="p">)()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Values:&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lfsr4FromNlfsrMethod</span><span class="p">])</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Comparing with the values obtained with the LFSR generator initialized with the same feedback function:&quot;</span><span class="p">)</span>
@@ -2153,8 +2153,8 @@ In&nbsp;[10]:
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;---------------&#39;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">()</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;# Test 3.2 - Poor NLFSR with x^4*x^4*x^3 + x^1*x^2 + x^1 + 1 as feedback polynomial and 13 as initial value&quot;</span><span class="p">)</span>
-<span class="n">poorNlfsr</span> <span class="o">=</span> <span class="n">createNLFSRgenerator</span><span class="p">(([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">13</span><span class="p">)()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;# Test 3.2 - Poor NLFSR with x^4*x^4*x^3 + x^1*x^2 + x^1*x^3 + 1 as feedback polynomial and 13 as initial value&quot;</span><span class="p">)</span>
+<span class="n">poorNlfsr</span> <span class="o">=</span> <span class="n">createNLFSRgenerator</span><span class="p">(([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">13</span><span class="p">)()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Values:&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">poorNlfsr</span><span class="p">])</span>
 
@@ -2163,7 +2163,7 @@ In&nbsp;[10]:
 <span class="k">print</span><span class="p">()</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;# Test 3.3 - Better NLFSR with x^4 + x^3 + x^2  + x^1*x^2 + 1 as feedback polynomial and 13 as initial value&quot;</span><span class="p">)</span>
-<span class="n">nlfsr4</span> <span class="o">=</span> <span class="n">createNLFSRgenerator</span><span class="p">(([</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">13</span><span class="p">)()</span>
+<span class="n">nlfsr4</span> <span class="o">=</span> <span class="n">createNLFSRgenerator</span><span class="p">(([</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">13</span><span class="p">)()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Values:&quot;</span><span class="p">)</span>
 <span class="n">valuesNLFSR4</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nlfsr4</span><span class="p">]</span>
 <span class="k">print</span><span class="p">(</span><span class="n">valuesNLFSR4</span><span class="p">)</span>
@@ -2200,26 +2200,41 @@ Comparing with the values obtained with the LFSR generator initialized with the 
 
 ---------------
 
-# Test 3.2 - Poor NLFSR with x^4*x^4*x^3 + x^1*x^2 + x^1 + 1 as feedback polynomial and 13 as initial value
+# Test 3.2 - Poor NLFSR with x^4*x^4*x^3 + x^1*x^2 + x^1*x^3 + 1 as feedback polynomial and 13 as initial value
 Values:
-[6, 3, 9, 12, 6, 3, 9, 12, 6, 3, 9, 12, 6, 3, 9]
+[14, 7, 11, 5, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 ---------------
 
 # Test 3.3 - Better NLFSR with x^4 + x^3 + x^2  + x^1*x^2 + 1 as feedback polynomial and 13 as initial value
 Values:
-[6, 11, 5, 2, 9, 12, 14, 15, 7, 3, 1, 8, 4, 10, 13]
+[14, 15, 7, 11, 5, 2, 9, 12, 6, 3, 1, 8, 4, 10, 13]
 
 ---------------
 
 # Test 3.4 - Applying Berlekamp-Massey algorithm to the previous sequence generated by the NLFSR
-Obtained Annihilating Polynomial: x^8 + x^6 + x^5 + x^2 
-Corresponding Taps Sequence: (0, 0, 1, 0, 0, 1, 1, 0)
+Obtained Annihilating Polynomial: x^7 + x^6 + x^3 + 1
+Corresponding Taps Sequence: (1, 0, 0, 1, 0, 0, 1)
 
 </pre>
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre> 
+</pre></div>
+
+</div>
 </div>
 </div>
 
